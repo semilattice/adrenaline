@@ -1,9 +1,7 @@
-#!/usr/bin/env bash
-
 set -o nounset
 
-source 'lib/Adrenaline/Poll/HttpExchange.bash'
-source 'lib/Adrenaline/Poll/IcmpEchoExchange.bash'
+source "$ADRENALINELIB/Adrenaline/Poll/HttpExchange.bash"
+source "$ADRENALINELIB/Adrenaline/Poll/IcmpEchoExchange.bash"
 
 main() {
     case ${1-} in
