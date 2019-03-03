@@ -14,7 +14,7 @@ httpExchange() {
         timeout=1
     fi
 
-    curl -X "$method" -m "$timeout" -- "$url"
+    >/dev/null curl -X "$method" -m "$timeout" -- "$url"
     return "$?"
 }
 
