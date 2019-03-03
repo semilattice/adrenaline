@@ -1,0 +1,3 @@
+httpExchange() {
+    echo "$@"
+}

@@ -1,0 +1,3 @@
+icmpEchoExchange() {
+    echo "$@"
+}
