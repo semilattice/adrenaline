@@ -1,4 +1,13 @@
+icmpEchoExchangeUsage() {
+    echo "Usage: $0 icmpEchoExchange ADDRESS TIMEOUT"
+}
+
 icmpEchoExchange() {
+    # Send an ICMP echo request to some host and await the corresponding ICMP
+    # echo response. If the ICMP echo response does not arrive in time, or it
+    # is ill-formed, fail with a non-zero status. Otherwise, print the time it
+    # took for the ICMP echo response to arrive.
+
     if (( $# != 2 )); then
         1>&2 icmpEchoExchangeUsage
         return 1
@@ -17,10 +26,6 @@ icmpEchoExchange() {
     ping -c 1 -W "$timeout" -- "$address"                                   \
         | icmpEchoExchangeExtractTime
     return "${PIPESTATUS[0]}"
-}
-
-icmpEchoExchangeUsage() {
-    echo "Usage: $0 icmpEchoExchange ADDRESS TIMEOUT"
 }
 
 icmpEchoExchangeExtractTime() {
