@@ -1,3 +1,7 @@
+httpExchangeUsage() {
+    echo "Usage: $0 httpEchoExchange METHOD URL TIMEOUT"
+}
+
 httpExchange() {
     if (( $# != 3 )); then
         1>&2 httpExchangeUsage
@@ -16,8 +20,4 @@ httpExchange() {
 
     >/dev/null curl -X "$method" -m "$timeout" -- "$url"
     return "$?"
-}
-
-httpExchangeUsage() {
-    echo "Usage: $0 httpEchoExchange METHOD URL TIMEOUT"
 }
