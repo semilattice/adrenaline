@@ -14,7 +14,7 @@ icmpEchoExchange() {
         timeout=1
     fi
 
-    ping -c 1 -W "$timeout" -- "$address"
+    ping -c 1 -W "$timeout" -- "$address" | grep -Po '(?<=time=)[0-9.]+(?= ms)'
     return "$?"
 }
 
