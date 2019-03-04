@@ -1,0 +1,8 @@
+Nix is used for building Adrenaline. It ensures that all dependencies are
+available. To build Adrenaline, invoke the following command from the
+repository root:
+
+    nix-build
+
+The complete build artifact will appear in the Nix store, and a symlink to it
+will be created in the repository root, called «result».

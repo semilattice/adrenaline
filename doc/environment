@@ -1,0 +1,13 @@
+Bash environment
+
+The Nix derivation wraps each Bash program so that the environment variables
+«ADRENALINEBIN» and «ADRENALINELIB» are available at runtime. They may be
+used to refer to the bin and share/lib folders of the derivation, to invoke
+programs and source libraries.
+
+For example, to source the source file «lib/Foo.bash» at runtime, write:
+
+    source "$ADRENALINELIB/Foo.bash"
+
+When you write a new Bash program you may want to add it to the derivation so
+that a wrapper is created for it.
