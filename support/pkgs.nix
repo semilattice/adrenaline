@@ -4,6 +4,9 @@ let
         sha256 = "1f7rqvvzj71msb9krckq8mjps7r5wdbga20zybz079clbrdhv9nf";
     };
     config = {
+        packageOverrides = pkgs: {
+            iptables = pkgs.callPackage ./iptables.nix {};
+        };
     };
 in
     {}:

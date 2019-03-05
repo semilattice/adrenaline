@@ -1,4 +1,4 @@
-{lib, stdenv, bash, bc, curl, makeWrapper}:
+{lib, stdenv, bash, bc, curl, iptables, makeWrapper}:
 stdenv.mkDerivation {
     name = "adrenaline";
     src = lib.cleanSource ./.;
@@ -6,6 +6,7 @@ stdenv.mkDerivation {
         bash
         bc
         curl
+        iptables
         makeWrapper
     ];
     phases = ["unpackPhase" "installPhase"];
@@ -16,12 +17,15 @@ stdenv.mkDerivation {
             makeWrapper '${bash}/bin/bash' "$out/bin/$1"                    \
                 --prefix 'PATH' ':' '${bc}/bin'                             \
                 --prefix 'PATH' ':' '${curl}/bin'                           \
-                --set 'ADRENALINEBIN' "$out/share/bin"                      \
+                --prefix 'PATH' ':' '${iptables}/bin'                       \
+                --set 'ADRENALINEBIN' "$out/bin"                            \
                 --set 'ADRENALINELIB' "$out/share/lib"                      \
                 --add-flags "$out/share/bin/$1.bash"
         }
 
         bashProgram 'adrenalinePoll'
+        bashProgram 'adrenalineTest'
+        bashProgram 'adrenalineTestInner'
 
         cp -R 'bin' "$out/share"
         cp -R 'lib' "$out/share"

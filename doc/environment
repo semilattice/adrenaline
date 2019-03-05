@@ -11,3 +11,10 @@ For example, to source the source file «lib/Foo.bash» at runtime, write:
 
 When you write a new Bash program you may want to add it to the derivation so
 that a wrapper is created for it.
+
+                                     * * *
+
+Test environment
+
+See the program «adrenalineTest» for more information about the test
+environment.
