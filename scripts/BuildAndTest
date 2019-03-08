@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -o errexit
+nix-build
+find result/bin/test -type f -print0 | xargs -0 prove

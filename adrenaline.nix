@@ -11,9 +11,10 @@ stdenv.mkDerivation {
     ];
     phases = ["unpackPhase" "installPhase"];
     installPhase = ''
-        mkdir -p "$out/bin" "$out/share"
+        mkdir -p "$out/bin" "$out/share/test"
 
         bashProgram() {
+            mkdir -p "$(dirname "$out/bin/$1")"
             makeWrapper '${bash}/bin/bash' "$out/bin/$1"                    \
                 --prefix 'PATH' ':' '${bc}/bin'                             \
                 --prefix 'PATH' ':' '${curl}/bin'                           \
@@ -23,11 +24,23 @@ stdenv.mkDerivation {
                 --add-flags "$out/share/bin/$1.bash"
         }
 
+        bashTest() {
+            mkdir -p "$(dirname "$out/bin/test/$1")"
+            makeWrapper "$out/bin/adrenalineTest" "$out/bin/test/$1"        \
+                --set 'ADRENALINEBIN' "$out/bin"                            \
+                --add-flags bash                                            \
+                --add-flags "$out/share/test/$1.bash"
+        }
+
         bashProgram 'adrenalinePoll'
         bashProgram 'adrenalineTest'
         bashProgram 'adrenalineTestInner'
 
-        cp -R 'bin' "$out/share"
-        cp -R 'lib' "$out/share"
+        bashTest 'adrenalinePoll/icmpEchoExchange/success'
+        bashTest 'adrenalinePoll/icmpEchoExchange/timeout'
+
+        cp -R 'bin'  "$out/share"
+        cp -R 'lib'  "$out/share"
+        cp -R 'test' "$out/share"
     '';
 }
